@@ -22,7 +22,7 @@ namespace TAS63Editor
 		public TAS63Editor()
 		{
 			KeyPreview = true;
-			_dataManager = new DataManager(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\test.txt");
+			//_dataManager = new DataManager(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\test.txt");
 			InitializeComponent();
 		}
 
@@ -116,7 +116,7 @@ namespace TAS63Editor
 
 		private void TAS63Editor_Load(object sender, EventArgs e)
 		{
-			LoadInputs();
+			//LoadInputs();
 		}
 
 		private void UpdateInputString(char chr, bool check)
@@ -214,7 +214,7 @@ namespace TAS63Editor
 
 		private void newToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-
+			InputsBox.Items.Clear();
 		}
 
 		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
