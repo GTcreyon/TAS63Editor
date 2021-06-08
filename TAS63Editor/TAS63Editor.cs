@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -96,7 +97,7 @@ namespace TAS63Editor
 			return newStr;
 		}
 
-		private void TAS63Editor_Load(object sender, EventArgs e)
+		private void LoadInputs()
 		{
 			var keys = _dataManager.ReadKeys();
 			var index = -1;
@@ -109,7 +110,13 @@ namespace TAS63Editor
 			})
 			.ToArray();
 
+			InputsBox.Items.Clear();
 			InputsBox.Items.AddRange(indexedKeyInputs);
+		}
+
+		private void TAS63Editor_Load(object sender, EventArgs e)
+		{
+			LoadInputs();
 		}
 
 		private void UpdateInputString(char chr, bool check)
@@ -205,9 +212,60 @@ namespace TAS63Editor
 			UpdateInputString('+', PlusCheck.Checked);
 		}
 
-		private void toolStripButton1_Click(object sender, EventArgs e)
+		private void newToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 
+		}
+
+		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MessageBox.Show("TAS63 Editor\nVersion: Alpha v0.1\nContact: creyon#1828");
+		}
+
+		private void githubToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ProcessStartInfo sInfo = new ProcessStartInfo("https://github.com/GTcreyon/TAS63Editor");
+			Process.Start(sInfo);
+		}
+
+		private void discordToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			ProcessStartInfo sInfo = new ProcessStartInfo("https://discord.gg/0106azhFbCc9eAUuq");
+			Process.Start(sInfo);
+		}
+
+		private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SaveFileDialog saveAs = new SaveFileDialog
+			{
+				InitialDirectory = "c:\\",
+				Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
+				RestoreDirectory = true,
+			};
+
+			if (saveAs.ShowDialog() == DialogResult.OK)
+			{
+				var encodedKeys = InputsBox.Items.Cast<string>()
+					.Select(x => x.Substring(_columnOffset + 2).Replace("_", ""))
+					.ToList();
+				_dataManager.SaveTxt(saveAs.FileName, encodedKeys);
+			}
+		}
+
+		private void openToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog open = new OpenFileDialog
+			{
+				InitialDirectory = "c:\\",
+				Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
+				RestoreDirectory = true,
+			};
+
+			if (open.ShowDialog() == DialogResult.OK)
+			{
+				_dataManager = new DataManager(open.FileName);
+				LoadInputs();
+			}
 		}
 	}
 }

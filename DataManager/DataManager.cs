@@ -26,9 +26,9 @@ namespace DataManagerCore
 			return _keyInputs;
 		}
 
-		public void SaveTxt(List<string> keys, List<string> mouse, List<string> rng)
+		public void SaveTxt(string path, List<string> keys)
 		{
-			File.WriteAllText(_path, string.Join("#", keys));
+			File.WriteAllText(path, string.Join("#", keys) + "/" + string.Join("#", _mouseInputs) + "/" + string.Join("#", _rngInputs));
 		}
 	}
 }

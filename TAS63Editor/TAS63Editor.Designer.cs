@@ -30,7 +30,6 @@ namespace TAS63Editor
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TAS63Editor));
 			this.InputsBox = new System.Windows.Forms.ListBox();
 			this.DCheck = new System.Windows.Forms.CheckBox();
 			this.UCheck = new System.Windows.Forms.CheckBox();
@@ -45,27 +44,29 @@ namespace TAS63Editor
 			this.XCheck = new System.Windows.Forms.CheckBox();
 			this.ZCheck = new System.Windows.Forms.CheckBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
-			this.label8 = new System.Windows.Forms.Label();
+			this.PlusLabel = new System.Windows.Forms.Label();
 			this.PlusCheck = new System.Windows.Forms.CheckBox();
-			this.label7 = new System.Windows.Forms.Label();
+			this.MinusLabel = new System.Windows.Forms.Label();
 			this.MinusCheck = new System.Windows.Forms.CheckBox();
-			this.label4 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
-			this.label6 = new System.Windows.Forms.Label();
-			this.SemiCheck = new System.Windows.Forms.CheckBox();
+			this.SLabel = new System.Windows.Forms.Label();
 			this.SCheck = new System.Windows.Forms.CheckBox();
+			this.PLabel = new System.Windows.Forms.Label();
 			this.PCheck = new System.Windows.Forms.CheckBox();
+			this.SemiLabel = new System.Windows.Forms.Label();
+			this.SemiCheck = new System.Windows.Forms.CheckBox();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
 			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveToTAS63PlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.githubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.discordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -210,16 +211,16 @@ namespace TAS63Editor
 			// 
 			// groupBox3
 			// 
-			this.groupBox3.Controls.Add(this.label8);
+			this.groupBox3.Controls.Add(this.PlusLabel);
 			this.groupBox3.Controls.Add(this.PlusCheck);
-			this.groupBox3.Controls.Add(this.label7);
+			this.groupBox3.Controls.Add(this.MinusLabel);
 			this.groupBox3.Controls.Add(this.MinusCheck);
-			this.groupBox3.Controls.Add(this.label4);
-			this.groupBox3.Controls.Add(this.label5);
-			this.groupBox3.Controls.Add(this.label6);
-			this.groupBox3.Controls.Add(this.SemiCheck);
+			this.groupBox3.Controls.Add(this.SLabel);
 			this.groupBox3.Controls.Add(this.SCheck);
+			this.groupBox3.Controls.Add(this.PLabel);
 			this.groupBox3.Controls.Add(this.PCheck);
+			this.groupBox3.Controls.Add(this.SemiLabel);
+			this.groupBox3.Controls.Add(this.SemiCheck);
 			this.groupBox3.Location = new System.Drawing.Point(259, 93);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(114, 59);
@@ -227,14 +228,14 @@ namespace TAS63Editor
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Misc";
 			// 
-			// label8
+			// PlusLabel
 			// 
-			this.label8.AutoSize = true;
-			this.label8.Location = new System.Drawing.Point(92, 40);
-			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(13, 13);
-			this.label8.TabIndex = 11;
-			this.label8.Text = "+";
+			this.PlusLabel.AutoSize = true;
+			this.PlusLabel.Location = new System.Drawing.Point(90, 38);
+			this.PlusLabel.Name = "PlusLabel";
+			this.PlusLabel.Size = new System.Drawing.Size(13, 13);
+			this.PlusLabel.TabIndex = 11;
+			this.PlusLabel.Text = "+";
 			// 
 			// PlusCheck
 			// 
@@ -246,14 +247,14 @@ namespace TAS63Editor
 			this.PlusCheck.UseVisualStyleBackColor = true;
 			this.PlusCheck.CheckedChanged += new System.EventHandler(this.PlusCheck_CheckedChanged);
 			// 
-			// label7
+			// MinusLabel
 			// 
-			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(71, 39);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(10, 13);
-			this.label7.TabIndex = 9;
-			this.label7.Text = "-";
+			this.MinusLabel.AutoSize = true;
+			this.MinusLabel.Location = new System.Drawing.Point(71, 39);
+			this.MinusLabel.Name = "MinusLabel";
+			this.MinusLabel.Size = new System.Drawing.Size(10, 13);
+			this.MinusLabel.TabIndex = 9;
+			this.MinusLabel.Text = "-";
 			// 
 			// MinusCheck
 			// 
@@ -265,42 +266,14 @@ namespace TAS63Editor
 			this.MinusCheck.UseVisualStyleBackColor = true;
 			this.MinusCheck.CheckedChanged += new System.EventHandler(this.MinusCheck_CheckedChanged);
 			// 
-			// label4
+			// SLabel
 			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(49, 38);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(10, 13);
-			this.label4.TabIndex = 7;
-			this.label4.Text = ";";
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(27, 39);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(14, 13);
-			this.label5.TabIndex = 6;
-			this.label5.Text = "S";
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(6, 39);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(14, 13);
-			this.label6.TabIndex = 5;
-			this.label6.Text = "P";
-			// 
-			// SemiCheck
-			// 
-			this.SemiCheck.AutoSize = true;
-			this.SemiCheck.Location = new System.Drawing.Point(48, 19);
-			this.SemiCheck.Name = "SemiCheck";
-			this.SemiCheck.Size = new System.Drawing.Size(15, 14);
-			this.SemiCheck.TabIndex = 4;
-			this.SemiCheck.UseVisualStyleBackColor = true;
-			this.SemiCheck.CheckedChanged += new System.EventHandler(this.SemiCheck_CheckedChanged);
+			this.SLabel.AutoSize = true;
+			this.SLabel.Location = new System.Drawing.Point(27, 39);
+			this.SLabel.Name = "SLabel";
+			this.SLabel.Size = new System.Drawing.Size(14, 13);
+			this.SLabel.TabIndex = 6;
+			this.SLabel.Text = "S";
 			// 
 			// SCheck
 			// 
@@ -312,6 +285,15 @@ namespace TAS63Editor
 			this.SCheck.UseVisualStyleBackColor = true;
 			this.SCheck.CheckedChanged += new System.EventHandler(this.SCheck_CheckedChanged);
 			// 
+			// PLabel
+			// 
+			this.PLabel.AutoSize = true;
+			this.PLabel.Location = new System.Drawing.Point(6, 39);
+			this.PLabel.Name = "PLabel";
+			this.PLabel.Size = new System.Drawing.Size(14, 13);
+			this.PLabel.TabIndex = 5;
+			this.PLabel.Text = "P";
+			// 
 			// PCheck
 			// 
 			this.PCheck.AutoSize = true;
@@ -321,6 +303,25 @@ namespace TAS63Editor
 			this.PCheck.TabIndex = 3;
 			this.PCheck.UseVisualStyleBackColor = true;
 			this.PCheck.CheckedChanged += new System.EventHandler(this.PCheck_CheckedChanged);
+			// 
+			// SemiLabel
+			// 
+			this.SemiLabel.AutoSize = true;
+			this.SemiLabel.Location = new System.Drawing.Point(50, 37);
+			this.SemiLabel.Name = "SemiLabel";
+			this.SemiLabel.Size = new System.Drawing.Size(10, 13);
+			this.SemiLabel.TabIndex = 7;
+			this.SemiLabel.Text = ";";
+			// 
+			// SemiCheck
+			// 
+			this.SemiCheck.AutoSize = true;
+			this.SemiCheck.Location = new System.Drawing.Point(48, 19);
+			this.SemiCheck.Name = "SemiCheck";
+			this.SemiCheck.Size = new System.Drawing.Size(15, 14);
+			this.SemiCheck.TabIndex = 4;
+			this.SemiCheck.UseVisualStyleBackColor = true;
+			this.SemiCheck.CheckedChanged += new System.EventHandler(this.SemiCheck_CheckedChanged);
 			// 
 			// toolStrip1
 			// 
@@ -340,36 +341,57 @@ namespace TAS63Editor
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
             this.importToolStripMenuItem,
-            this.saveToolStripMenuItem});
-			this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.saveToolStripMenuItem,
+            this.saveAsToolStripMenuItem,
+            this.saveToTAS63PlayerToolStripMenuItem});
 			this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
 			this.toolStripDropDownButton1.Size = new System.Drawing.Size(38, 22);
 			this.toolStripDropDownButton1.Text = "File";
+			this.toolStripDropDownButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
 			// 
 			// newToolStripMenuItem
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
 			this.newToolStripMenuItem.Text = "New";
+			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
 			// 
 			// openToolStripMenuItem
 			// 
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
 			this.openToolStripMenuItem.Text = "Open";
+			this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
 			// 
 			// importToolStripMenuItem
 			// 
 			this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-			this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
 			this.importToolStripMenuItem.Text = "Import";
+			this.importToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
 			// 
 			// saveToolStripMenuItem
 			// 
 			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-			this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
 			this.saveToolStripMenuItem.Text = "Save";
+			this.saveToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+			// 
+			// saveAsToolStripMenuItem
+			// 
+			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+			this.saveAsToolStripMenuItem.Text = "Save As";
+			this.saveAsToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+			this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+			// 
+			// saveToTAS63PlayerToolStripMenuItem
+			// 
+			this.saveToTAS63PlayerToolStripMenuItem.Name = "saveToTAS63PlayerToolStripMenuItem";
+			this.saveToTAS63PlayerToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+			this.saveToTAS63PlayerToolStripMenuItem.Text = "Save to TAS63 Player";
+			this.saveToTAS63PlayerToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
 			// 
 			// toolStripDropDownButton2
 			// 
@@ -379,7 +401,6 @@ namespace TAS63Editor
             this.documentationToolStripMenuItem,
             this.githubToolStripMenuItem,
             this.discordToolStripMenuItem});
-			this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
 			this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
 			this.toolStripDropDownButton2.Size = new System.Drawing.Size(45, 22);
@@ -390,24 +411,27 @@ namespace TAS63Editor
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
 			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.aboutToolStripMenuItem.Text = "About";
-			// 
-			// githubToolStripMenuItem
-			// 
-			this.githubToolStripMenuItem.Name = "githubToolStripMenuItem";
-			this.githubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.githubToolStripMenuItem.Text = "Github";
-			// 
-			// discordToolStripMenuItem
-			// 
-			this.discordToolStripMenuItem.Name = "discordToolStripMenuItem";
-			this.discordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.discordToolStripMenuItem.Text = "Discord";
+			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
 			// documentationToolStripMenuItem
 			// 
 			this.documentationToolStripMenuItem.Name = "documentationToolStripMenuItem";
 			this.documentationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.documentationToolStripMenuItem.Text = "Documentation";
+			// 
+			// githubToolStripMenuItem
+			// 
+			this.githubToolStripMenuItem.Name = "githubToolStripMenuItem";
+			this.githubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.githubToolStripMenuItem.Text = "Github";
+			this.githubToolStripMenuItem.Click += new System.EventHandler(this.githubToolStripMenuItem_Click);
+			// 
+			// discordToolStripMenuItem
+			// 
+			this.discordToolStripMenuItem.Name = "discordToolStripMenuItem";
+			this.discordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.discordToolStripMenuItem.Text = "Discord";
+			this.discordToolStripMenuItem.Click += new System.EventHandler(this.discordToolStripMenuItem_Click);
 			// 
 			// TAS63Editor
 			// 
@@ -452,13 +476,13 @@ namespace TAS63Editor
 		private System.Windows.Forms.CheckBox XCheck;
 		private System.Windows.Forms.CheckBox ZCheck;
 		private System.Windows.Forms.GroupBox groupBox3;
-		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.Label PlusLabel;
 		private System.Windows.Forms.CheckBox PlusCheck;
-		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.Label MinusLabel;
 		private System.Windows.Forms.CheckBox MinusCheck;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label SemiLabel;
+		private System.Windows.Forms.Label SLabel;
+		private System.Windows.Forms.Label PLabel;
 		private System.Windows.Forms.CheckBox SemiCheck;
 		private System.Windows.Forms.CheckBox SCheck;
 		private System.Windows.Forms.CheckBox PCheck;
@@ -473,6 +497,8 @@ namespace TAS63Editor
 		private System.Windows.Forms.ToolStripMenuItem documentationToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem githubToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem discordToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem saveToTAS63PlayerToolStripMenuItem;
 	}
 }
 

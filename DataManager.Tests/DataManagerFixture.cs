@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using DataManagerCore;
+using System.Linq;
 
 namespace DataManagerTests
 {
@@ -11,7 +12,7 @@ namespace DataManagerTests
 		}
 
 		[Test]
-		public void can_get_correct_number_of_rows()
+		public void saves_properly()
 		{
 			// Arrange
 			//TODO: Figure out using mappath
@@ -19,10 +20,11 @@ namespace DataManagerTests
 
 			// Act
 			var data = dataManager.ReadKeys();
+			dataManager.SaveTxt(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\test2.txt", data.ToList<string>());
 
 			// Assert
 			Assert.That(data, Is.Not.Null);
-			Assert.That(data.Count, Is.EqualTo(1404));
+			FileAssert.AreEqual(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\test.txt", @"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\test2.txt");
 		}
 	}
 }
