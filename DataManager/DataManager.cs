@@ -10,7 +10,6 @@ namespace DataManagerCore
 		private readonly List<string> _keyInputs;
 		private readonly List<string> _mouseInputs;
 		private readonly List<string> _rngInputs;
-		private readonly string _path;
 
 		public DataManager(string path)
 		{

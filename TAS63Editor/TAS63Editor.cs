@@ -208,7 +208,7 @@ namespace TAS63Editor
 
 		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show("TAS63 Editor\nVersion: Alpha v0.1\nContact: creyon#1828");
+			MessageBox.Show($"TAS63 Editor\nVersion: {Application.ProductVersion}\nContact: creyon#1828", "About");
 		}
 
 		private void githubToolStripMenuItem_Click(object sender, EventArgs e)
