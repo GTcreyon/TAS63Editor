@@ -70,21 +70,24 @@ namespace TAS63Editor
 			this.AddFrame = new System.Windows.Forms.Button();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
 			this.RemoveFrame = new System.Windows.Forms.Button();
+			this.groupBox5 = new System.Windows.Forms.GroupBox();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			this.groupBox4.SuspendLayout();
+			this.groupBox5.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// InputsBox
 			// 
+			this.InputsBox.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.InputsBox.Font = new System.Drawing.Font("Lucida Sans Typewriter", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.InputsBox.FormattingEnabled = true;
 			this.InputsBox.ItemHeight = 12;
-			this.InputsBox.Location = new System.Drawing.Point(12, 28);
+			this.InputsBox.Location = new System.Drawing.Point(3, 16);
 			this.InputsBox.Name = "InputsBox";
-			this.InputsBox.Size = new System.Drawing.Size(241, 412);
+			this.InputsBox.Size = new System.Drawing.Size(235, 389);
 			this.InputsBox.TabIndex = 0;
 			this.InputsBox.SelectedIndexChanged += new System.EventHandler(this.InputsBox_SelectedIndexChanged);
 			// 
@@ -358,7 +361,7 @@ namespace TAS63Editor
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
 			this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
 			this.newToolStripMenuItem.Text = "New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
 			// 
@@ -366,7 +369,7 @@ namespace TAS63Editor
 			// 
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
 			this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
 			this.openToolStripMenuItem.Text = "Open";
 			this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
 			// 
@@ -374,15 +377,16 @@ namespace TAS63Editor
 			// 
 			this.importToolStripMenuItem.Name = "importToolStripMenuItem";
 			this.importToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-			this.importToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.importToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
 			this.importToolStripMenuItem.Text = "Import";
 			this.importToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+			this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
 			// 
 			// saveToolStripMenuItem
 			// 
 			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
 			this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-			this.saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.saveToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
 			this.saveToolStripMenuItem.Text = "Save";
 			this.saveToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
 			// 
@@ -391,7 +395,7 @@ namespace TAS63Editor
 			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
 			this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
 			this.saveAsToolStripMenuItem.Text = "Save As";
 			this.saveAsToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
 			this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
@@ -447,7 +451,8 @@ namespace TAS63Editor
 			// 
 			// AddFrame
 			// 
-			this.AddFrame.Location = new System.Drawing.Point(259, 28);
+			this.AddFrame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.AddFrame.Location = new System.Drawing.Point(259, 44);
 			this.AddFrame.Name = "AddFrame";
 			this.AddFrame.Size = new System.Drawing.Size(23, 23);
 			this.AddFrame.TabIndex = 10;
@@ -457,6 +462,7 @@ namespace TAS63Editor
 			// 
 			// groupBox4
 			// 
+			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox4.Controls.Add(this.groupBox1);
 			this.groupBox4.Controls.Add(this.groupBox2);
 			this.groupBox4.Controls.Add(this.groupBox3);
@@ -469,7 +475,8 @@ namespace TAS63Editor
 			// 
 			// RemoveFrame
 			// 
-			this.RemoveFrame.Location = new System.Drawing.Point(259, 57);
+			this.RemoveFrame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.RemoveFrame.Location = new System.Drawing.Point(259, 73);
 			this.RemoveFrame.Name = "RemoveFrame";
 			this.RemoveFrame.Size = new System.Drawing.Size(23, 23);
 			this.RemoveFrame.TabIndex = 12;
@@ -477,17 +484,30 @@ namespace TAS63Editor
 			this.RemoveFrame.UseVisualStyleBackColor = true;
 			this.RemoveFrame.Click += new System.EventHandler(this.RemoveFrame_Click);
 			// 
+			// groupBox5
+			// 
+			this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox5.Controls.Add(this.InputsBox);
+			this.groupBox5.Location = new System.Drawing.Point(12, 28);
+			this.groupBox5.Name = "groupBox5";
+			this.groupBox5.Size = new System.Drawing.Size(241, 408);
+			this.groupBox5.TabIndex = 13;
+			this.groupBox5.TabStop = false;
+			this.groupBox5.Text = "Frames";
+			// 
 			// TAS63Editor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Control;
-			this.ClientSize = new System.Drawing.Size(444, 450);
+			this.ClientSize = new System.Drawing.Size(444, 448);
+			this.Controls.Add(this.groupBox5);
 			this.Controls.Add(this.RemoveFrame);
 			this.Controls.Add(this.groupBox4);
 			this.Controls.Add(this.AddFrame);
 			this.Controls.Add(this.toolStrip1);
-			this.Controls.Add(this.InputsBox);
 			this.Name = "TAS63Editor";
 			this.Text = "TAS63 Editor";
 			this.Load += new System.EventHandler(this.TAS63Editor_Load);
@@ -501,6 +521,7 @@ namespace TAS63Editor
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
 			this.groupBox4.ResumeLayout(false);
+			this.groupBox5.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -548,6 +569,7 @@ namespace TAS63Editor
 		private System.Windows.Forms.Button AddFrame;
 		private System.Windows.Forms.GroupBox groupBox4;
 		private System.Windows.Forms.Button RemoveFrame;
+		private System.Windows.Forms.GroupBox groupBox5;
 	}
 }
 

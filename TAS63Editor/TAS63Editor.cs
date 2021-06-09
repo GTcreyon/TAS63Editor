@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -110,16 +111,19 @@ namespace TAS63Editor
 
 		private void UpdateInputString(char chr, bool check)
 		{
-			char[] ch = InputsBox.SelectedItem.ToString().ToCharArray();
-			var offset = _inputKeys.IndexOf(chr);
-			ch[_columnOffset + 2 + offset] = check ? chr : '_';
-			string newstring = new string(ch);
-			int index = InputsBox.Items.IndexOf(InputsBox.SelectedItem);
-			_editingList = true; //TODO: hack solution, fix
-			InputsBox.Items.RemoveAt(index);
-			InputsBox.Items.Insert(index, newstring);
-			InputsBox.SelectedIndex = index;
-			_editingList = false;
+			if (InputsBox.SelectedIndex != -1)
+			{
+				char[] ch = InputsBox.SelectedItem.ToString().ToCharArray();
+				var offset = _inputKeys.IndexOf(chr);
+				ch[_columnOffset + 2 + offset] = check ? chr : '_';
+				string newstring = new string(ch);
+				int index = InputsBox.Items.IndexOf(InputsBox.SelectedItem);
+				_editingList = true; //TODO: hack solution, fix
+				InputsBox.Items.RemoveAt(index);
+				InputsBox.Items.Insert(index, newstring);
+				InputsBox.SelectedIndex = index;
+				_editingList = false;
+			}
 		}
 
 		private void InputsBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -227,7 +231,7 @@ namespace TAS63Editor
 		{
 			SaveFileDialog saveAs = new SaveFileDialog
 			{
-				InitialDirectory = "c:\\",
+				InitialDirectory = @"C:\",
 				Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
 				RestoreDirectory = true,
 			};
@@ -245,14 +249,14 @@ namespace TAS63Editor
 		{
 			OpenFileDialog open = new OpenFileDialog
 			{
-				InitialDirectory = "c:\\",
+				InitialDirectory = @"C:\",
 				Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
 				RestoreDirectory = true,
 			};
 
 			if (open.ShowDialog() == DialogResult.OK)
 			{
-				_dataManager = new DataManager(open.FileName);
+				_dataManager = new DataManager(open.FileName, false);
 				LoadInputs();
 			}
 		}
@@ -293,6 +297,22 @@ namespace TAS63Editor
 				FixIndexes(InputsBox.Items.Cast<string>());
 				InputsBox.SelectedIndex = index - 1;
 				_editingList = false;
+			}
+		}
+
+		private void importToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			OpenFileDialog open = new OpenFileDialog
+			{
+				InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Macromedia\Flash Player\#SharedObjects"),
+				Filter = "SharedObject Files (*.sol)|*.sol|All files (*.*)|*.*",
+				RestoreDirectory = true,
+			};
+
+			if (open.ShowDialog() == DialogResult.OK)
+			{
+				_dataManager = new DataManager(open.FileName, true);
+				LoadInputs();
 			}
 		}
 	}
