@@ -100,18 +100,7 @@ namespace TAS63Editor
 		private void LoadInputs()
 		{
 			var keys = _dataManager.ReadKeys();
-			var index = -1;
-			_columnOffset = (int)Math.Log10(keys.Count) + 1;
-
-			var indexedKeyInputs = keys.Select(x => FormatInputs(x))
-			.Select(x => {
-				index++;
-				return string.Format($"{{0,{-_columnOffset}}}: {{1}}", index, x);
-			})
-			.ToArray();
-
-			InputsBox.Items.Clear();
-			InputsBox.Items.AddRange(indexedKeyInputs);
+			FixIndexes(keys);
 		}
 
 		private void TAS63Editor_Load(object sender, EventArgs e)
@@ -265,6 +254,45 @@ namespace TAS63Editor
 			{
 				_dataManager = new DataManager(open.FileName);
 				LoadInputs();
+			}
+		}
+
+		private void FixIndexes(IEnumerable<string> items)
+		{
+			var index = -1;
+			_columnOffset = (int)Math.Log10(items.Count() <= 1 ? 1 : items.Count() - 1) + 1;
+
+			var indexedKeyInputs = items.Select(x => FormatInputs(x))
+			.Select(x => {
+				index++;
+				return string.Format($"{{0,{-_columnOffset}}}: {{1}}", index, x);
+			})
+			.ToArray();
+
+			InputsBox.Items.Clear();
+			InputsBox.Items.AddRange(indexedKeyInputs);
+		}
+
+		private void AddFrame_Click(object sender, EventArgs e)
+		{
+			var index = InputsBox.SelectedIndex == -1 ? 0 : InputsBox.SelectedIndex + 1;
+			_editingList = true;
+			InputsBox.Items.Insert(index, string.Format($"{{0,{-_columnOffset}}}: {{1}}", index, FormatInputs("")));
+			FixIndexes(InputsBox.Items.Cast<string>());
+			InputsBox.SelectedIndex = index;
+			_editingList = false;
+		}
+
+		private void RemoveFrame_Click(object sender, EventArgs e)
+		{
+			if (InputsBox.SelectedIndex != -1)
+			{
+				var index = InputsBox.SelectedIndex;
+				_editingList = true;
+				InputsBox.Items.RemoveAt(index);
+				FixIndexes(InputsBox.Items.Cast<string>());
+				InputsBox.SelectedIndex = index - 1;
+				_editingList = false;
 			}
 		}
 	}

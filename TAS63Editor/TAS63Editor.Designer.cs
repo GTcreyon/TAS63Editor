@@ -67,10 +67,14 @@ namespace TAS63Editor
 			this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.githubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.discordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.AddFrame = new System.Windows.Forms.Button();
+			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.RemoveFrame = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
+			this.groupBox4.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// InputsBox
@@ -130,7 +134,7 @@ namespace TAS63Editor
 			this.groupBox1.Controls.Add(this.DCheck);
 			this.groupBox1.Controls.Add(this.LCheck);
 			this.groupBox1.Controls.Add(this.UCheck);
-			this.groupBox1.Location = new System.Drawing.Point(259, 28);
+			this.groupBox1.Location = new System.Drawing.Point(6, 19);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(67, 59);
 			this.groupBox1.TabIndex = 5;
@@ -145,7 +149,7 @@ namespace TAS63Editor
 			this.groupBox2.Controls.Add(this.CCheck);
 			this.groupBox2.Controls.Add(this.XCheck);
 			this.groupBox2.Controls.Add(this.ZCheck);
-			this.groupBox2.Location = new System.Drawing.Point(332, 28);
+			this.groupBox2.Location = new System.Drawing.Point(78, 19);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(67, 59);
 			this.groupBox2.TabIndex = 6;
@@ -221,7 +225,7 @@ namespace TAS63Editor
 			this.groupBox3.Controls.Add(this.PCheck);
 			this.groupBox3.Controls.Add(this.SemiLabel);
 			this.groupBox3.Controls.Add(this.SemiCheck);
-			this.groupBox3.Location = new System.Drawing.Point(259, 93);
+			this.groupBox3.Location = new System.Drawing.Point(6, 84);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(114, 59);
 			this.groupBox3.TabIndex = 8;
@@ -330,7 +334,7 @@ namespace TAS63Editor
             this.toolStripDropDownButton2});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(800, 25);
+			this.toolStrip1.Size = new System.Drawing.Size(444, 25);
 			this.toolStrip1.TabIndex = 9;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
@@ -353,35 +357,41 @@ namespace TAS63Editor
 			// newToolStripMenuItem
 			// 
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+			this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.newToolStripMenuItem.Text = "New";
 			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
 			// 
 			// openToolStripMenuItem
 			// 
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+			this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.openToolStripMenuItem.Text = "Open";
 			this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
 			// 
 			// importToolStripMenuItem
 			// 
 			this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-			this.importToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+			this.importToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+			this.importToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.importToolStripMenuItem.Text = "Import";
 			this.importToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
 			// 
 			// saveToolStripMenuItem
 			// 
 			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-			this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+			this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+			this.saveToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.saveToolStripMenuItem.Text = "Save";
 			this.saveToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
 			// 
 			// saveAsToolStripMenuItem
 			// 
 			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+			this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
 			this.saveAsToolStripMenuItem.Text = "Save As";
 			this.saveAsToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
 			this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
@@ -389,7 +399,9 @@ namespace TAS63Editor
 			// saveToTAS63PlayerToolStripMenuItem
 			// 
 			this.saveToTAS63PlayerToolStripMenuItem.Name = "saveToTAS63PlayerToolStripMenuItem";
-			this.saveToTAS63PlayerToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+			this.saveToTAS63PlayerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.S)));
+			this.saveToTAS63PlayerToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
 			this.saveToTAS63PlayerToolStripMenuItem.Text = "Save to TAS63 Player";
 			this.saveToTAS63PlayerToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
 			// 
@@ -409,39 +421,71 @@ namespace TAS63Editor
 			// aboutToolStripMenuItem
 			// 
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
 			this.aboutToolStripMenuItem.Text = "About";
 			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
 			// documentationToolStripMenuItem
 			// 
 			this.documentationToolStripMenuItem.Name = "documentationToolStripMenuItem";
-			this.documentationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.documentationToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
 			this.documentationToolStripMenuItem.Text = "Documentation";
 			// 
 			// githubToolStripMenuItem
 			// 
 			this.githubToolStripMenuItem.Name = "githubToolStripMenuItem";
-			this.githubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.githubToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
 			this.githubToolStripMenuItem.Text = "Github";
 			this.githubToolStripMenuItem.Click += new System.EventHandler(this.githubToolStripMenuItem_Click);
 			// 
 			// discordToolStripMenuItem
 			// 
 			this.discordToolStripMenuItem.Name = "discordToolStripMenuItem";
-			this.discordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.discordToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
 			this.discordToolStripMenuItem.Text = "Discord";
 			this.discordToolStripMenuItem.Click += new System.EventHandler(this.discordToolStripMenuItem_Click);
+			// 
+			// AddFrame
+			// 
+			this.AddFrame.Location = new System.Drawing.Point(259, 28);
+			this.AddFrame.Name = "AddFrame";
+			this.AddFrame.Size = new System.Drawing.Size(23, 23);
+			this.AddFrame.TabIndex = 10;
+			this.AddFrame.Text = "+";
+			this.AddFrame.UseVisualStyleBackColor = true;
+			this.AddFrame.Click += new System.EventHandler(this.AddFrame_Click);
+			// 
+			// groupBox4
+			// 
+			this.groupBox4.Controls.Add(this.groupBox1);
+			this.groupBox4.Controls.Add(this.groupBox2);
+			this.groupBox4.Controls.Add(this.groupBox3);
+			this.groupBox4.Location = new System.Drawing.Point(288, 28);
+			this.groupBox4.Name = "groupBox4";
+			this.groupBox4.Size = new System.Drawing.Size(151, 149);
+			this.groupBox4.TabIndex = 11;
+			this.groupBox4.TabStop = false;
+			this.groupBox4.Text = "Inputs";
+			// 
+			// RemoveFrame
+			// 
+			this.RemoveFrame.Location = new System.Drawing.Point(259, 57);
+			this.RemoveFrame.Name = "RemoveFrame";
+			this.RemoveFrame.Size = new System.Drawing.Size(23, 23);
+			this.RemoveFrame.TabIndex = 12;
+			this.RemoveFrame.Text = "-";
+			this.RemoveFrame.UseVisualStyleBackColor = true;
+			this.RemoveFrame.Click += new System.EventHandler(this.RemoveFrame_Click);
 			// 
 			// TAS63Editor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(444, 450);
+			this.Controls.Add(this.RemoveFrame);
+			this.Controls.Add(this.groupBox4);
+			this.Controls.Add(this.AddFrame);
 			this.Controls.Add(this.toolStrip1);
-			this.Controls.Add(this.groupBox3);
-			this.Controls.Add(this.groupBox2);
-			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.InputsBox);
 			this.Name = "TAS63Editor";
 			this.Text = "TAS63 Editor";
@@ -455,6 +499,7 @@ namespace TAS63Editor
 			this.groupBox3.PerformLayout();
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
+			this.groupBox4.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -499,6 +544,9 @@ namespace TAS63Editor
 		private System.Windows.Forms.ToolStripMenuItem discordToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem saveToTAS63PlayerToolStripMenuItem;
+		private System.Windows.Forms.Button AddFrame;
+		private System.Windows.Forms.GroupBox groupBox4;
+		private System.Windows.Forms.Button RemoveFrame;
 	}
 }
 
