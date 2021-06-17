@@ -16,14 +16,12 @@ namespace DataManagerTests
 		{
 			// Arrange
 			//TODO: Figure out using mappath
-			DataManager dataManager = new DataManager(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\test.txt", false);
+			var data = DataManager.LoadFile(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\test.txt", false);
 
 			// Act
-			var data = dataManager.ReadKeys();
-			dataManager.SaveTxt(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\test2.txt", data.ToList<string>());
+			DataManager.SaveTxt(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\test2.txt", data[0].ToList(), data[1].ToList(), data[2].ToList());
 
 			// Assert
-			Assert.That(data, Is.Not.Null);
 			FileAssert.AreEqual(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\test.txt", @"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\test2.txt");
 		}
 
@@ -31,11 +29,10 @@ namespace DataManagerTests
 		public void extracts_sol_properly()
 		{
 			// Arrange
-			DataManager dataManager = new DataManager(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\testSol.sol", true);
+			var data = DataManager.LoadFile(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\testSol.sol", true);
 
 			// Act
-			var data = dataManager.ReadKeys();
-			dataManager.SaveTxt(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\testSol.txt", data.ToList<string>());
+			DataManager.SaveTxt(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\testSol.txt", data[0].ToList(), data[1].ToList(), data[2].ToList());
 
 			// Assert
 			FileAssert.AreEqual(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\test.txt", @"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\testSol.txt");

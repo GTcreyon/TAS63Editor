@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,15 +16,14 @@ namespace TAS63Editor
 {
 	public partial class TAS63Editor : Form
 	{
-		private DataManager _dataManager;
 		private List<char> _inputKeys = new List<char>() { 'U', 'D', 'L', 'R', 'Z', 'X', 'C', 'P', 'S', ';', '-', '+'};
-		private int _columnOffset = 0;
+		private int _columnOffsetInputs = 0;
+		private int _columnOffsetRng = 0;
 		private bool _editingList = false;
-
+		private Random _rand = new Random();
 		public TAS63Editor()
 		{
 			KeyPreview = true;
-			//_dataManager = new DataManager(@"C:\Users\Tricia\source\repos\TAS63Editor\DataManager.Tests\TestFiles\test.txt");
 			InitializeComponent();
 		}
 
@@ -98,10 +98,20 @@ namespace TAS63Editor
 			return newStr;
 		}
 
-		private void LoadInputs()
+		private void LoadInputs(string path, bool extract)
 		{
-			var keys = _dataManager.ReadKeys();
-			FixIndexes(keys);
+			InputsBox.Items.Clear();
+			var data = DataManager.LoadFile(path, extract);
+			var keys = data[0];
+			var mouse = data[1];
+			var rng = data[2];
+			for (int i = 0; i < keys.Count; i++)
+			{
+				InputsBox.Items.Add($"{keys[i]}({mouse[i]})");
+			}
+			RngBox.Items.AddRange(rng.ToArray());
+			FixInputIndexes();
+			FixRngIndexes();
 		}
 
 		private void TAS63Editor_Load(object sender, EventArgs e)
@@ -115,7 +125,7 @@ namespace TAS63Editor
 			{
 				char[] ch = InputsBox.SelectedItem.ToString().ToCharArray();
 				var offset = _inputKeys.IndexOf(chr);
-				ch[_columnOffset + 2 + offset] = check ? chr : '_';
+				ch[_columnOffsetInputs + 2 + offset] = check ? chr : '_';
 				string newstring = new string(ch);
 				int index = InputsBox.Items.IndexOf(InputsBox.SelectedItem);
 				_editingList = true; //TODO: hack solution, fix
@@ -130,18 +140,23 @@ namespace TAS63Editor
 		{
 			if (!_editingList)
 			{
-				UCheck.Checked = InputsBox.SelectedItem.ToString().Contains('U');
-				DCheck.Checked = InputsBox.SelectedItem.ToString().Contains('D');
-				LCheck.Checked = InputsBox.SelectedItem.ToString().Contains('L');
-				RCheck.Checked = InputsBox.SelectedItem.ToString().Contains('R');
-				ZCheck.Checked = InputsBox.SelectedItem.ToString().Contains('Z');
-				XCheck.Checked = InputsBox.SelectedItem.ToString().Contains('X');
-				CCheck.Checked = InputsBox.SelectedItem.ToString().Contains('C');
-				PCheck.Checked = InputsBox.SelectedItem.ToString().Contains('P');
-				SCheck.Checked = InputsBox.SelectedItem.ToString().Contains('S');
-				SemiCheck.Checked = InputsBox.SelectedItem.ToString().Contains(';');
-				MinusCheck.Checked = InputsBox.SelectedItem.ToString().Contains('-');
-				PlusCheck.Checked = InputsBox.SelectedItem.ToString().Contains('+');
+				var inputString = InputsBox.SelectedItem.ToString();
+				UCheck.Checked = inputString.Contains('U');
+				DCheck.Checked = inputString.Contains('D');
+				LCheck.Checked = inputString.Contains('L');
+				RCheck.Checked = inputString.Contains('R');
+				ZCheck.Checked = inputString.Contains('Z');
+				XCheck.Checked = inputString.Contains('X');
+				CCheck.Checked = inputString.Contains('C');
+				PCheck.Checked = inputString.Contains('P');
+				SCheck.Checked = inputString.Contains('S');
+				SemiCheck.Checked = inputString.Contains(';');
+				MinusCheck.Checked = inputString.Contains('-');
+				PlusCheck.Checked = inputString.Contains('+');
+				MouseCheck.Checked = inputString[16 + _columnOffsetInputs] == '1';
+				var mouseArray = inputString.Substring(18 + _columnOffsetInputs).Replace(")", "").Split(',');
+				MouseXTextbox.Text = mouseArray[0];
+				MouseYTextbox.Text = mouseArray[1];
 			}
 		}
 
@@ -205,6 +220,49 @@ namespace TAS63Editor
 			UpdateInputString('+', PlusCheck.Checked);
 		}
 
+		private void MouseXTextbox_TextChanged(object sender, EventArgs e)
+		{
+			if (InputsBox.SelectedIndex != -1)
+			{
+				var regex = new Regex(@",.*,");
+				var newString = regex.Replace(InputsBox.SelectedItem.ToString(), $",{MouseXTextbox.Text},");
+				int index = InputsBox.Items.IndexOf(InputsBox.SelectedItem);
+				_editingList = true;
+				InputsBox.Items.RemoveAt(index);
+				InputsBox.Items.Insert(index, newString);
+				InputsBox.SelectedIndex = index;
+				_editingList = false;
+			}
+		}
+
+		private void MouseYTextbox_TextChanged(object sender, EventArgs e)
+		{
+			if (InputsBox.SelectedIndex != -1)
+			{
+				var regex = new Regex(@",[0-9]*\)");
+				var newString = regex.Replace(InputsBox.SelectedItem.ToString(), $",{MouseYTextbox.Text})");
+				int index = InputsBox.Items.IndexOf(InputsBox.SelectedItem);
+				_editingList = true;
+				InputsBox.Items.RemoveAt(index);
+				InputsBox.Items.Insert(index, newString);
+				InputsBox.SelectedIndex = index;
+				_editingList = false;
+			}
+		}
+
+		private void MouseCheck_CheckedChanged(object sender, EventArgs e)
+		{
+			char[] ch = InputsBox.SelectedItem.ToString().ToCharArray();
+			ch[_columnOffsetInputs + 16] = MouseCheck.Checked ? '1' : '0';
+			string newstring = new string(ch);
+			int index = InputsBox.Items.IndexOf(InputsBox.SelectedItem);
+			_editingList = true; //TODO: hack solution, fix
+			InputsBox.Items.RemoveAt(index);
+			InputsBox.Items.Insert(index, newstring);
+			InputsBox.SelectedIndex = index;
+			_editingList = false;
+		}
+
 		private void newToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			InputsBox.Items.Clear();
@@ -238,10 +296,14 @@ namespace TAS63Editor
 
 			if (saveAs.ShowDialog() == DialogResult.OK)
 			{
-				var encodedKeys = InputsBox.Items.Cast<string>()
-					.Select(x => x.Substring(_columnOffset + 2).Replace("_", ""))
+				var mouse = InputsBox.Items.Cast<string>()
+					.Select(x => x.Substring(x.IndexOf("(") + 1).Replace(")", ""))
 					.ToList();
-				_dataManager.SaveTxt(saveAs.FileName, encodedKeys);
+				var keys = InputsBox.Items.Cast<string>()
+					.Select(x => x.Substring(_columnOffsetInputs + 2, 12).Replace("_", ""))
+					.ToList();
+				var rng = RngBox.Items.Cast<string>().ToList();
+				DataManager.SaveTxt(saveAs.FileName, keys, mouse, rng);
 			}
 		}
 
@@ -256,33 +318,63 @@ namespace TAS63Editor
 
 			if (open.ShowDialog() == DialogResult.OK)
 			{
-				_dataManager = new DataManager(open.FileName, false);
-				LoadInputs();
+				LoadInputs(open.FileName, false);
 			}
 		}
 
-		private void FixIndexes(IEnumerable<string> items)
+		private void FixInputIndexes()
 		{
+			var items = InputsBox.Items.Cast<string>();
 			var index = -1;
-			_columnOffset = (int)Math.Log10(items.Count() <= 1 ? 1 : items.Count() - 1) + 1;
-
-			var indexedKeyInputs = items.Select(x => FormatInputs(x))
-			.Select(x => {
+			_columnOffsetInputs = (int)Math.Log10(items.Count() <= 1 ? 1 : items.Count() - 1) + 1;
+			var indexedInputs = items.Select(x => {
 				index++;
-				return string.Format($"{{0,{-_columnOffset}}}: {{1}}", index, x);
+				var bracketIndex = x.IndexOf("(");
+				string mousePart;
+				string keysPart;
+				if (bracketIndex > 0)
+				{
+					mousePart = x.Substring(bracketIndex);
+					keysPart = x.Substring(0, bracketIndex);
+				}
+				else
+				{
+					mousePart = x;
+					keysPart = "";
+				}
+				return string.Format($"{{0,{-_columnOffsetInputs}}}: {{1}} {{2}}", index, FormatInputs(keysPart), mousePart);
 			})
 			.ToArray();
 
 			InputsBox.Items.Clear();
-			InputsBox.Items.AddRange(indexedKeyInputs);
+			InputsBox.Items.AddRange(indexedInputs);
+		}
+
+		private void FixRngIndexes()
+		{
+			var items = RngBox.Items.Cast<string>();
+			var index = -1;
+			_columnOffsetRng = (int)Math.Log10(items.Count() <= 1 ? 1 : items.Count() - 1) + 1;
+			var indexedEvents = items.Select(x => {
+				index++;
+				if (x.Contains(':'))
+				{
+					x = x.Substring(x.IndexOf(':') + 2);
+				}
+				return string.Format($"{{0,{-_columnOffsetRng}}}: {{1}}", index, x);
+			})
+			.ToArray();
+
+			RngBox.Items.Clear();
+			RngBox.Items.AddRange(indexedEvents);
 		}
 
 		private void AddFrame_Click(object sender, EventArgs e)
 		{
 			var index = InputsBox.SelectedIndex == -1 ? 0 : InputsBox.SelectedIndex + 1;
 			_editingList = true;
-			InputsBox.Items.Insert(index, string.Format($"{{0,{-_columnOffset}}}: {{1}}", index, FormatInputs("")));
-			FixIndexes(InputsBox.Items.Cast<string>());
+			InputsBox.Items.Insert(index, string.Format($"{{0,{-_columnOffsetInputs}}}: {{1}} (0,0,0)", index, FormatInputs("")));
+			FixInputIndexes();
 			InputsBox.SelectedIndex = index;
 			_editingList = false;
 		}
@@ -294,7 +386,7 @@ namespace TAS63Editor
 				var index = InputsBox.SelectedIndex;
 				_editingList = true;
 				InputsBox.Items.RemoveAt(index);
-				FixIndexes(InputsBox.Items.Cast<string>());
+				FixInputIndexes();
 				InputsBox.SelectedIndex = index - 1;
 				_editingList = false;
 			}
@@ -311,9 +403,70 @@ namespace TAS63Editor
 
 			if (open.ShowDialog() == DialogResult.OK)
 			{
-				_dataManager = new DataManager(open.FileName, true);
-				LoadInputs();
+				LoadInputs(open.FileName, true);
 			}
+		}
+
+		private void RandomButton_Click(object sender, EventArgs e)
+		{
+			RngValue.Value = _rand.Next(1000);
+		}
+
+		private void AddEvent_Click(object sender, EventArgs e)
+		{
+			var index = RngBox.SelectedIndex == -1 ? 0 : RngBox.SelectedIndex + 1;
+			_editingList = true;
+			RngBox.Items.Insert(index, _rand.Next(1000).ToString());
+			FixRngIndexes();
+			RngBox.SelectedIndex = index;
+			_editingList = false;
+		}
+
+		private void RemoveEvent_Click(object sender, EventArgs e)
+		{
+			if (RngBox.SelectedIndex != -1)
+			{
+				var index = RngBox.SelectedIndex;
+				_editingList = true;
+				RngBox.Items.RemoveAt(index);
+				FixRngIndexes();
+				RngBox.SelectedIndex = index - 1;
+				_editingList = false;
+			}
+		}
+
+		private void RngBox_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (!_editingList)
+			{
+				RngValue.Value = decimal.Parse(RngBox.SelectedItem.ToString().Substring(RngBox.SelectedItem.ToString().IndexOf(':') + 2));
+			}
+		}
+
+		private void RngValue_ValueChanged(object sender, EventArgs e)
+		{
+			if (RngBox.SelectedIndex != -1)
+			{
+				int index = RngBox.Items.IndexOf(RngBox.SelectedItem);
+				_editingList = true;
+				RngBox.Items.RemoveAt(index);
+				RngBox.Items.Insert(index, string.Format($"{{0,{-_columnOffsetRng}}}: {{1}}", index, RngValue.Value.ToString()));
+				RngBox.SelectedIndex = index;
+				_editingList = false;
+			}
+		}
+
+		private void GenerateButton_Click(object sender, EventArgs e)
+		{
+			var index = RngBox.SelectedIndex + 1;
+			_editingList = true;
+			for (int i = 0; i < GenerateCount.Value; i++)
+			{
+				RngBox.Items.Insert(index, _rand.Next(1000).ToString());
+			}
+			FixRngIndexes();
+			RngBox.SelectedIndex = index - 1;
+			_editingList = false;
 		}
 	}
 }

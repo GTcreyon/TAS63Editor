@@ -5,38 +5,27 @@ using System.Linq;
 
 namespace DataManagerCore
 {
-	public class DataManager
+	public static class DataManager
 	{
-		private readonly List<string> _keyInputs;
-		private readonly List<string> _mouseInputs;
-		private readonly List<string> _rngInputs;
-
-		public DataManager(string path, bool extract)
+		public static IReadOnlyList<string>[] LoadFile(string path, bool extract)
 		{
 			var content = File.ReadAllText(path);
 			if (extract)
 			{
 				content = ExtractSol(content);
 			}
-			var segments = content.Split('/');
-			_keyInputs = segments[0].Split('#').ToList();
-			_mouseInputs = segments[1].Split('#').ToList();
-			_rngInputs = segments[2].Split('#').ToList();
+			var segments = content.Split('/').Select(x => x.Split('#')).ToArray();
+			return segments;
 		}
 
-		private string ExtractSol(string content)
+		private static string ExtractSol(string content)
 		{
 			return content.Substring(36, content.Length-1 - 36);
 		}
 
-		public IReadOnlyList<string> ReadKeys()
+		public static void SaveTxt(string path, List<string> keys, List<string> mouse, List<string> rng)
 		{
-			return _keyInputs;
-		}
-
-		public void SaveTxt(string path, List<string> keys)
-		{
-			File.WriteAllText(path, string.Join("#", keys) + "/" + string.Join("#", _mouseInputs) + "/" + string.Join("#", _rngInputs));
+			File.WriteAllText(path, string.Join("#", keys) + "/" + string.Join("#", mouse) + "/" + string.Join("#", rng));
 		}
 	}
 }
