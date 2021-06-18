@@ -312,6 +312,7 @@ namespace TAS63Editor
 
 			if (open.ShowDialog() == DialogResult.OK)
 			{
+				_saveDir = open.FileName;
 				LoadInputs(open.FileName, false);
 			}
 		}
