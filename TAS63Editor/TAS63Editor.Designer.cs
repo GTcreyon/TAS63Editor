@@ -80,6 +80,7 @@ namespace TAS63Editor
 			this.groupBox7 = new System.Windows.Forms.GroupBox();
 			this.RngBox = new System.Windows.Forms.ListBox();
 			this.groupBox8 = new System.Windows.Forms.GroupBox();
+			this.DuplicateFrame = new System.Windows.Forms.Button();
 			this.groupBox9 = new System.Windows.Forms.GroupBox();
 			this.groupBox11 = new System.Windows.Forms.GroupBox();
 			this.GenerateButton = new System.Windows.Forms.Button();
@@ -416,6 +417,7 @@ namespace TAS63Editor
 			this.saveToolStripMenuItem.Size = new System.Drawing.Size(244, 22);
 			this.saveToolStripMenuItem.Text = "Save";
 			this.saveToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+			this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
 			// 
 			// saveAsToolStripMenuItem
 			// 
@@ -614,6 +616,7 @@ namespace TAS63Editor
 			this.groupBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox8.Controls.Add(this.DuplicateFrame);
 			this.groupBox8.Controls.Add(this.groupBox5);
 			this.groupBox8.Controls.Add(this.groupBox4);
 			this.groupBox8.Controls.Add(this.groupBox6);
@@ -625,6 +628,17 @@ namespace TAS63Editor
 			this.groupBox8.TabIndex = 15;
 			this.groupBox8.TabStop = false;
 			this.groupBox8.Text = "Inputs";
+			// 
+			// DuplicateFrame
+			// 
+			this.DuplicateFrame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.DuplicateFrame.Location = new System.Drawing.Point(185, 93);
+			this.DuplicateFrame.Name = "DuplicateFrame";
+			this.DuplicateFrame.Size = new System.Drawing.Size(23, 23);
+			this.DuplicateFrame.TabIndex = 15;
+			this.DuplicateFrame.Text = "*";
+			this.DuplicateFrame.UseVisualStyleBackColor = true;
+			this.DuplicateFrame.Click += new System.EventHandler(this.DuplicateFrame_Click);
 			// 
 			// groupBox9
 			// 
@@ -849,6 +863,7 @@ namespace TAS63Editor
 		private System.Windows.Forms.NumericUpDown GenerateCount;
 		private System.Windows.Forms.Button GenerateButton;
 		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Button DuplicateFrame;
 	}
 }
 

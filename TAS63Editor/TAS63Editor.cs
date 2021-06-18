@@ -21,6 +21,8 @@ namespace TAS63Editor
 		private int _columnOffsetRng = 0;
 		private bool _editingList = false;
 		private Random _rand = new Random();
+		private string _saveDir = null;
+
 		public TAS63Editor()
 		{
 			KeyPreview = true;
@@ -291,19 +293,12 @@ namespace TAS63Editor
 			{
 				InitialDirectory = @"C:\",
 				Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
-				RestoreDirectory = true,
 			};
 
 			if (saveAs.ShowDialog() == DialogResult.OK)
 			{
-				var mouse = InputsBox.Items.Cast<string>()
-					.Select(x => x.Substring(x.IndexOf("(") + 1).Replace(")", ""))
-					.ToList();
-				var keys = InputsBox.Items.Cast<string>()
-					.Select(x => x.Substring(_columnOffsetInputs + 2, 12).Replace("_", ""))
-					.ToList();
-				var rng = RngBox.Items.Cast<string>().ToList();
-				DataManager.SaveTxt(saveAs.FileName, keys, mouse, rng);
+				_saveDir = saveAs.FileName;
+				SaveData(_saveDir);
 			}
 		}
 
@@ -313,7 +308,6 @@ namespace TAS63Editor
 			{
 				InitialDirectory = @"C:\",
 				Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
-				RestoreDirectory = true,
 			};
 
 			if (open.ShowDialog() == DialogResult.OK)
@@ -375,8 +369,9 @@ namespace TAS63Editor
 			_editingList = true;
 			InputsBox.Items.Insert(index, string.Format($"{{0,{-_columnOffsetInputs}}}: {{1}} (0,0,0)", index, FormatInputs("")));
 			FixInputIndexes();
-			InputsBox.SelectedIndex = index;
+			
 			_editingList = false;
+			InputsBox.SelectedIndex = index;
 		}
 
 		private void RemoveFrame_Click(object sender, EventArgs e)
@@ -387,8 +382,9 @@ namespace TAS63Editor
 				_editingList = true;
 				InputsBox.Items.RemoveAt(index);
 				FixInputIndexes();
-				InputsBox.SelectedIndex = index - 1;
+				
 				_editingList = false;
+				InputsBox.SelectedIndex = index - 1;
 			}
 		}
 
@@ -398,7 +394,6 @@ namespace TAS63Editor
 			{
 				InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Macromedia\Flash Player\#SharedObjects"),
 				Filter = "SharedObject Files (*.sol)|*.sol|All files (*.*)|*.*",
-				RestoreDirectory = true,
 			};
 
 			if (open.ShowDialog() == DialogResult.OK)
@@ -418,8 +413,8 @@ namespace TAS63Editor
 			_editingList = true;
 			RngBox.Items.Insert(index, _rand.Next(1000).ToString());
 			FixRngIndexes();
-			RngBox.SelectedIndex = index;
 			_editingList = false;
+			RngBox.SelectedIndex = index;
 		}
 
 		private void RemoveEvent_Click(object sender, EventArgs e)
@@ -430,8 +425,8 @@ namespace TAS63Editor
 				_editingList = true;
 				RngBox.Items.RemoveAt(index);
 				FixRngIndexes();
-				RngBox.SelectedIndex = index - 1;
 				_editingList = false;
+				RngBox.SelectedIndex = index - 1;
 			}
 		}
 
@@ -467,6 +462,52 @@ namespace TAS63Editor
 			FixRngIndexes();
 			RngBox.SelectedIndex = index - 1;
 			_editingList = false;
+		}
+
+		private void DuplicateFrame_Click(object sender, EventArgs e)
+		{
+			var index = InputsBox.SelectedIndex == -1 ? 0 : InputsBox.SelectedIndex + 1;
+			_editingList = true;
+			InputsBox.Items.Insert(index, InputsBox.SelectedItem);
+			FixInputIndexes();
+			_editingList = false;
+			InputsBox.SelectedIndex = index;
+		}
+
+		private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (_saveDir == null)
+			{
+				SaveFileDialog saveAs = new SaveFileDialog
+				{
+					InitialDirectory = @"C:\",
+					Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
+				};
+
+				if (saveAs.ShowDialog() == DialogResult.OK)
+				{
+					_saveDir = saveAs.FileName;
+					SaveData(_saveDir);
+				}
+			}
+			else
+			{
+				SaveData(_saveDir);
+			}
+		}
+
+		private void SaveData(string dir)
+		{
+			var mouse = InputsBox.Items.Cast<string>()
+				.Select(x => x.Substring(x.IndexOf("(") + 1).Replace(")", ""))
+				.ToList();
+			var keys = InputsBox.Items.Cast<string>()
+				.Select(x => x.Substring(_columnOffsetInputs + 2, 12).Replace("_", ""))
+				.ToList();
+			var rng = RngBox.Items.Cast<string>()
+				.Select(x => x.Substring(_columnOffsetRng + 2))
+				.ToList();
+			DataManager.SaveTxt(dir, keys, mouse, rng);
 		}
 	}
 }
