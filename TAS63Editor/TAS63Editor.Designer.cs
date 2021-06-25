@@ -115,6 +115,7 @@ namespace TAS63Editor
 			this.InputsBox.ItemHeight = 12;
 			this.InputsBox.Location = new System.Drawing.Point(3, 16);
 			this.InputsBox.Name = "InputsBox";
+			this.InputsBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
 			this.InputsBox.Size = new System.Drawing.Size(167, 365);
 			this.InputsBox.TabIndex = 0;
 			this.InputsBox.SelectedIndexChanged += new System.EventHandler(this.InputsBox_SelectedIndexChanged);

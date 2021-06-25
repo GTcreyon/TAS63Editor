@@ -20,6 +20,7 @@ namespace TAS63Editor
 		private int _columnOffsetInputs = 0;
 		private int _columnOffsetRng = 0;
 		private bool _editingList = false;
+		private bool _selecting = false;
 		private Random _rand = new Random();
 		private string _saveDir = null;
 
@@ -31,26 +32,20 @@ namespace TAS63Editor
 
 		private void TAS63Editor_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.Modifiers == Keys.Alt)
-			{
-				switch (e.KeyCode)
-				{
-					case Keys.Up:
-						UCheck.Checked = !UCheck.Checked;
-						break;
-					case Keys.Down:
-						DCheck.Checked = !DCheck.Checked;
-						break;
-					case Keys.Left:
-						LCheck.Checked = !LCheck.Checked;
-						break;
-					case Keys.Right:
-						RCheck.Checked = !RCheck.Checked;
-						break;
-				}
-			}
 			switch (e.KeyCode)
 			{
+				case Keys.Up:
+					UCheck.Checked = !UCheck.Checked;
+					break;
+				case Keys.Down:
+					DCheck.Checked = !DCheck.Checked;
+					break;
+				case Keys.Left:
+					LCheck.Checked = !LCheck.Checked;
+					break;
+				case Keys.Right:
+					RCheck.Checked = !RCheck.Checked;
+					break;
 				case Keys.Z:
 					ZCheck.Checked = !ZCheck.Checked;
 					break;
@@ -76,10 +71,7 @@ namespace TAS63Editor
 					PlusCheck.Checked = !PlusCheck.Checked;
 					break;
 			}
-			if (e.Modifiers == Keys.Shift)
-			{
-				SCheck.Checked = !SCheck.Checked;
-			}
+			e.Handled = true;
 		}
 
 		private string FormatInputs(string str)
@@ -103,6 +95,7 @@ namespace TAS63Editor
 		private void LoadInputs(string path, bool extract)
 		{
 			InputsBox.Items.Clear();
+			RngBox.Items.Clear();
 			var data = DataManager.LoadFile(path, extract);
 			var keys = data[0];
 			var mouse = data[1];
@@ -123,18 +116,23 @@ namespace TAS63Editor
 
 		private void UpdateInputString(char chr, bool check)
 		{
-			if (InputsBox.SelectedIndex != -1)
+			if (InputsBox.SelectedIndex != -1 && !_selecting)
 			{
-				char[] ch = InputsBox.SelectedItem.ToString().ToCharArray();
-				var offset = _inputKeys.IndexOf(chr);
-				ch[_columnOffsetInputs + 2 + offset] = check ? chr : '_';
-				string newstring = new string(ch);
-				int index = InputsBox.Items.IndexOf(InputsBox.SelectedItem);
-				_editingList = true; //TODO: hack solution, fix
-				InputsBox.Items.RemoveAt(index);
-				InputsBox.Items.Insert(index, newstring);
-				InputsBox.SelectedIndex = index;
-				_editingList = false;
+				var copyList = InputsBox.SelectedItems.Cast<string>().ToList();
+				foreach (var item in copyList)
+				{
+					char[] ch = item.ToString().ToCharArray();
+					var offset = _inputKeys.IndexOf(chr);
+					ch[_columnOffsetInputs + 2 + offset] = check ? chr : '_';
+					string newstring = new string(ch);
+					int index = InputsBox.Items.IndexOf(item);
+					_editingList = true; //TODO: hack solution, fix
+					InputsBox.Items.RemoveAt(index);
+					InputsBox.Items.Insert(index, newstring);
+					InputsBox.SelectedIndex = index;
+					_editingList = false;
+				}
+				
 			}
 		}
 
@@ -143,6 +141,7 @@ namespace TAS63Editor
 			if (!_editingList)
 			{
 				var inputString = InputsBox.SelectedItem.ToString();
+				_selecting = true;
 				UCheck.Checked = inputString.Contains('U');
 				DCheck.Checked = inputString.Contains('D');
 				LCheck.Checked = inputString.Contains('L');
@@ -159,6 +158,7 @@ namespace TAS63Editor
 				var mouseArray = inputString.Substring(18 + _columnOffsetInputs).Replace(")", "").Split(',');
 				MouseXTextbox.Text = mouseArray[0];
 				MouseYTextbox.Text = mouseArray[1];
+				_selecting = false;
 			}
 		}
 
@@ -224,50 +224,64 @@ namespace TAS63Editor
 
 		private void MouseXTextbox_TextChanged(object sender, EventArgs e)
 		{
-			if (InputsBox.SelectedIndex != -1)
+			if (InputsBox.SelectedIndex != -1 && !_selecting)
 			{
-				var regex = new Regex(@",.*,");
-				var newString = regex.Replace(InputsBox.SelectedItem.ToString(), $",{MouseXTextbox.Text},");
-				int index = InputsBox.Items.IndexOf(InputsBox.SelectedItem);
-				_editingList = true;
-				InputsBox.Items.RemoveAt(index);
-				InputsBox.Items.Insert(index, newString);
-				InputsBox.SelectedIndex = index;
-				_editingList = false;
+				var copyList = InputsBox.SelectedItems.Cast<string>().ToList();
+				foreach (var item in copyList)
+				{
+					var regex = new Regex(@",.*,");
+					var newString = regex.Replace(item.ToString(), $",{MouseXTextbox.Text},");
+					int index = InputsBox.Items.IndexOf(item);
+					_editingList = true;
+					InputsBox.Items.RemoveAt(index);
+					InputsBox.Items.Insert(index, newString);
+					InputsBox.SelectedIndices.Add(index);
+					_editingList = false;
+				}
+				
 			}
 		}
 
 		private void MouseYTextbox_TextChanged(object sender, EventArgs e)
 		{
-			if (InputsBox.SelectedIndex != -1)
+			if (InputsBox.SelectedIndex != -1 && !_selecting)
 			{
-				var regex = new Regex(@",[0-9]*\)");
-				var newString = regex.Replace(InputsBox.SelectedItem.ToString(), $",{MouseYTextbox.Text})");
-				int index = InputsBox.Items.IndexOf(InputsBox.SelectedItem);
-				_editingList = true;
-				InputsBox.Items.RemoveAt(index);
-				InputsBox.Items.Insert(index, newString);
-				InputsBox.SelectedIndex = index;
-				_editingList = false;
+				var copyList = InputsBox.SelectedItems.Cast<string>().ToList();
+				foreach (var item in copyList)
+				{
+					var regex = new Regex(@",[0-9-]*\)");
+					var newString = regex.Replace(item.ToString(), $",{MouseYTextbox.Text})");
+					int index = InputsBox.Items.IndexOf(item);
+					_editingList = true;
+					InputsBox.Items.RemoveAt(index);
+					InputsBox.Items.Insert(index, newString);
+					InputsBox.SelectedIndices.Add(index);
+					_editingList = false;
+				}
 			}
 		}
 
 		private void MouseCheck_CheckedChanged(object sender, EventArgs e)
 		{
-			char[] ch = InputsBox.SelectedItem.ToString().ToCharArray();
-			ch[_columnOffsetInputs + 16] = MouseCheck.Checked ? '1' : '0';
-			string newstring = new string(ch);
-			int index = InputsBox.Items.IndexOf(InputsBox.SelectedItem);
-			_editingList = true; //TODO: hack solution, fix
-			InputsBox.Items.RemoveAt(index);
-			InputsBox.Items.Insert(index, newstring);
-			InputsBox.SelectedIndex = index;
-			_editingList = false;
+			var copyList = InputsBox.SelectedItems.Cast<string>().ToList();
+			foreach (var item in copyList)
+			{
+				char[] ch = item.ToString().ToCharArray();
+				ch[_columnOffsetInputs + 16] = MouseCheck.Checked ? '1' : '0';
+				string newstring = new string(ch);
+				int index = InputsBox.Items.IndexOf(item);
+				_editingList = true; //TODO: hack solution, fix
+				InputsBox.Items.RemoveAt(index);
+				InputsBox.Items.Insert(index, newstring);
+				InputsBox.SelectedIndices.Add(index);
+				_editingList = false;
+			}
 		}
 
 		private void newToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			InputsBox.Items.Clear();
+			RngBox.Items.Clear();
 		}
 
 		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -381,7 +395,12 @@ namespace TAS63Editor
 			{
 				var index = InputsBox.SelectedIndex;
 				_editingList = true;
-				InputsBox.Items.RemoveAt(index);
+				var copyList = InputsBox.SelectedItems.Cast<string>().ToList();
+				foreach (var item in copyList)
+				{
+					InputsBox.Items.Remove(item);
+				}
+				
 				FixInputIndexes();
 				
 				_editingList = false;

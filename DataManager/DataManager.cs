@@ -26,7 +26,27 @@ namespace DataManagerCore
 		private static IReadOnlyList<string> CompressData(List<string> data)
 		{
 			var multiplier = 0;
+			var collapseIndex = 0;
+			int i = 0;
+			while (i < data.Count)
+			{
+				if (i < data.Count - 1 && data[i] == data[i + 1])
+				{
+					data.RemoveAt(i + 1);
+					multiplier++;
+				}
+				else if (multiplier > 0)
+				{
+					i = collapseIndex;
+					data[i] = $"{data[i]}*{multiplier - 1}";
 					multiplier = 0;
+					i++;
+					collapseIndex = i;
+				}
+				else
+				{
+					i++;
+					collapseIndex = i;
 				}
 			}
 			return data;
@@ -40,7 +60,7 @@ namespace DataManagerCore
 
 		public static void SaveTxt(string path, List<string> keys, List<string> mouse, List<string> rng)
 		{
-			File.WriteAllText(path, string.Join("#", keys) + "/" + string.Join("#", mouse) + "/" + string.Join("#", rng));
+			File.WriteAllText(path, string.Join("#", CompressData(keys)) + "/" + string.Join("#", CompressMouse(mouse)) + "/" + string.Join("#", rng));
 		}
 	}
 }
