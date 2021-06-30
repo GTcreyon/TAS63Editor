@@ -100,7 +100,7 @@ namespace TAS63Editor
 			var keys = data[0];
 			var mouse = data[1];
 			var rng = data[2];
-			for (int i = 0; i < keys.Count; i++)
+			for (int i = 0; i < keys.Count(); i++)
 			{
 				InputsBox.Items.Add($"{keys[i]}({mouse[i]})");
 			}
