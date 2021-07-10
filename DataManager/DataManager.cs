@@ -9,7 +9,8 @@ namespace DataManagerCore
 	{
 		public static IReadOnlyList<IReadOnlyList<string>> LoadFile(string path, bool extract)
 		{
-			var content = File.ReadAllText(path);
+			var content = File.ReadAllText(path).Replace(',', '~');
+			content = File.ReadAllText(path).Replace('*', '&');
 			if (extract)
 			{
 				content = ExtractSol(content);
@@ -29,12 +30,12 @@ namespace DataManagerCore
 			var segments = content.Split('/').Select(x => x.Split('#').ToList()).ToList();
 			if (format > 0)
 			{
-				segments = segments.DecompressData();
+				segments = segments.DecompressData(format);
 			}
 			return segments;
 		}
 
-		private static List<List<string>> DecompressData(this List<List<string>> segments)
+		private static List<List<string>> DecompressData(this List<List<string>> segments, int format)
 		{
 			var keys = segments[0];
 			var mouse = segments[1];
@@ -42,7 +43,9 @@ namespace DataManagerCore
 			for (int i = 0; i < keys.Count; i++)
 			{
 				var element = keys[i];
-				var astIndex = element.IndexOf('*');
+				int astIndex;
+
+					astIndex = element.IndexOf('&');
 				if (astIndex >= 0)
 				{
 					var part = element.Substring(0, astIndex);
@@ -57,9 +60,10 @@ namespace DataManagerCore
 			}
 			for (int i = 0; i < mouse.Count; i++)
 			{
-				mouse[i] = mouse[i].Insert(1, ",");
+				mouse[i] = mouse[i].Insert(1, "~");
 				var element = mouse[i];
-				var astIndex = element.IndexOf('*');
+				int astIndex;
+					astIndex = element.IndexOf('&');
 				if (astIndex >= 0)
 				{
 					var part = element.Substring(0, astIndex);
@@ -101,7 +105,7 @@ namespace DataManagerCore
 				else if (multiplier > 0)
 				{
 					i = collapseIndex;
-					data[i] = $"{data[i]}*{multiplier - 1}";
+					data[i] = $"{data[i]}&{multiplier - 1}";
 					data[i] = data[i].Replace("_", "");
 					multiplier = 0;
 					i++;
@@ -125,7 +129,7 @@ namespace DataManagerCore
 
 		public static void SaveTxt(string path, List<string> keys, List<string> mouse, List<string> rng)
 		{
-			File.WriteAllText(path, "{1}" + string.Join("#", CompressData(keys)) + "/" + string.Join("#", CompressMouse(mouse)) + "/" + string.Join("#", rng));
+			File.WriteAllText(path, "{2}" + string.Join("#", CompressData(keys)) + "/" + string.Join("#", CompressMouse(mouse)) + "/" + string.Join("#", rng));
 		}
 	}
 }

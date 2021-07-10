@@ -82,13 +82,13 @@ namespace TAS63Editor
 			this.groupBox8 = new System.Windows.Forms.GroupBox();
 			this.DuplicateFrame = new System.Windows.Forms.Button();
 			this.groupBox9 = new System.Windows.Forms.GroupBox();
-			this.groupBox11 = new System.Windows.Forms.GroupBox();
-			this.GenerateButton = new System.Windows.Forms.Button();
-			this.label5 = new System.Windows.Forms.Label();
-			this.GenerateCount = new System.Windows.Forms.NumericUpDown();
 			this.groupBox10 = new System.Windows.Forms.GroupBox();
-			this.RandomButton = new System.Windows.Forms.Button();
+			this.label7 = new System.Windows.Forms.Label();
 			this.RngValue = new System.Windows.Forms.NumericUpDown();
+			this.RandomiseButton = new System.Windows.Forms.Button();
+			this.RngID = new System.Windows.Forms.TextBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
 			this.AddEvent = new System.Windows.Forms.Button();
 			this.RemoveEvent = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
@@ -101,8 +101,6 @@ namespace TAS63Editor
 			this.groupBox7.SuspendLayout();
 			this.groupBox8.SuspendLayout();
 			this.groupBox9.SuspendLayout();
-			this.groupBox11.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.GenerateCount)).BeginInit();
 			this.groupBox10.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.RngValue)).BeginInit();
 			this.SuspendLayout();
@@ -116,7 +114,7 @@ namespace TAS63Editor
 			this.InputsBox.Location = new System.Drawing.Point(3, 16);
 			this.InputsBox.Name = "InputsBox";
 			this.InputsBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-			this.InputsBox.Size = new System.Drawing.Size(167, 365);
+			this.InputsBox.Size = new System.Drawing.Size(233, 365);
 			this.InputsBox.TabIndex = 0;
 			this.InputsBox.SelectedIndexChanged += new System.EventHandler(this.InputsBox_SelectedIndexChanged);
 			// 
@@ -366,7 +364,7 @@ namespace TAS63Editor
             this.toolStripDropDownButton2});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(694, 25);
+			this.toolStrip1.Size = new System.Drawing.Size(875, 25);
 			this.toolStrip1.TabIndex = 9;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
@@ -482,7 +480,7 @@ namespace TAS63Editor
 			// AddFrame
 			// 
 			this.AddFrame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.AddFrame.Location = new System.Drawing.Point(185, 35);
+			this.AddFrame.Location = new System.Drawing.Point(251, 35);
 			this.AddFrame.Name = "AddFrame";
 			this.AddFrame.Size = new System.Drawing.Size(23, 23);
 			this.AddFrame.TabIndex = 10;
@@ -496,7 +494,7 @@ namespace TAS63Editor
 			this.groupBox4.Controls.Add(this.groupBox1);
 			this.groupBox4.Controls.Add(this.groupBox2);
 			this.groupBox4.Controls.Add(this.groupBox3);
-			this.groupBox4.Location = new System.Drawing.Point(214, 19);
+			this.groupBox4.Location = new System.Drawing.Point(280, 19);
 			this.groupBox4.Name = "groupBox4";
 			this.groupBox4.Size = new System.Drawing.Size(151, 149);
 			this.groupBox4.TabIndex = 11;
@@ -506,7 +504,7 @@ namespace TAS63Editor
 			// RemoveFrame
 			// 
 			this.RemoveFrame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.RemoveFrame.Location = new System.Drawing.Point(185, 64);
+			this.RemoveFrame.Location = new System.Drawing.Point(251, 64);
 			this.RemoveFrame.Name = "RemoveFrame";
 			this.RemoveFrame.Size = new System.Drawing.Size(23, 23);
 			this.RemoveFrame.TabIndex = 12;
@@ -522,7 +520,7 @@ namespace TAS63Editor
 			this.groupBox5.Controls.Add(this.InputsBox);
 			this.groupBox5.Location = new System.Drawing.Point(6, 19);
 			this.groupBox5.Name = "groupBox5";
-			this.groupBox5.Size = new System.Drawing.Size(173, 384);
+			this.groupBox5.Size = new System.Drawing.Size(239, 384);
 			this.groupBox5.TabIndex = 13;
 			this.groupBox5.TabStop = false;
 			this.groupBox5.Text = "Frames";
@@ -535,7 +533,7 @@ namespace TAS63Editor
 			this.groupBox6.Controls.Add(this.MouseXLabel);
 			this.groupBox6.Controls.Add(this.MouseCheck);
 			this.groupBox6.Controls.Add(this.MouseXTextbox);
-			this.groupBox6.Location = new System.Drawing.Point(214, 174);
+			this.groupBox6.Location = new System.Drawing.Point(280, 174);
 			this.groupBox6.Name = "groupBox6";
 			this.groupBox6.Size = new System.Drawing.Size(84, 100);
 			this.groupBox6.TabIndex = 14;
@@ -595,7 +593,7 @@ namespace TAS63Editor
 			this.groupBox7.Controls.Add(this.RngBox);
 			this.groupBox7.Location = new System.Drawing.Point(6, 19);
 			this.groupBox7.Name = "groupBox7";
-			this.groupBox7.Size = new System.Drawing.Size(105, 384);
+			this.groupBox7.Size = new System.Drawing.Size(173, 384);
 			this.groupBox7.TabIndex = 14;
 			this.groupBox7.TabStop = false;
 			this.groupBox7.Text = "Events";
@@ -608,7 +606,7 @@ namespace TAS63Editor
 			this.RngBox.ItemHeight = 12;
 			this.RngBox.Location = new System.Drawing.Point(3, 16);
 			this.RngBox.Name = "RngBox";
-			this.RngBox.Size = new System.Drawing.Size(99, 365);
+			this.RngBox.Size = new System.Drawing.Size(167, 365);
 			this.RngBox.TabIndex = 0;
 			this.RngBox.SelectedIndexChanged += new System.EventHandler(this.RngBox_SelectedIndexChanged);
 			// 
@@ -625,7 +623,7 @@ namespace TAS63Editor
 			this.groupBox8.Controls.Add(this.RemoveFrame);
 			this.groupBox8.Location = new System.Drawing.Point(12, 28);
 			this.groupBox8.Name = "groupBox8";
-			this.groupBox8.Size = new System.Drawing.Size(377, 409);
+			this.groupBox8.Size = new System.Drawing.Size(443, 409);
 			this.groupBox8.TabIndex = 15;
 			this.groupBox8.TabStop = false;
 			this.groupBox8.Text = "Inputs";
@@ -633,7 +631,7 @@ namespace TAS63Editor
 			// DuplicateFrame
 			// 
 			this.DuplicateFrame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.DuplicateFrame.Location = new System.Drawing.Point(185, 93);
+			this.DuplicateFrame.Location = new System.Drawing.Point(251, 93);
 			this.DuplicateFrame.Name = "DuplicateFrame";
 			this.DuplicateFrame.Size = new System.Drawing.Size(23, 23);
 			this.DuplicateFrame.TabIndex = 15;
@@ -645,108 +643,93 @@ namespace TAS63Editor
 			// 
 			this.groupBox9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox9.Controls.Add(this.groupBox11);
 			this.groupBox9.Controls.Add(this.groupBox10);
 			this.groupBox9.Controls.Add(this.AddEvent);
 			this.groupBox9.Controls.Add(this.RemoveEvent);
 			this.groupBox9.Controls.Add(this.groupBox7);
-			this.groupBox9.Location = new System.Drawing.Point(395, 28);
+			this.groupBox9.Location = new System.Drawing.Point(461, 28);
 			this.groupBox9.Name = "groupBox9";
-			this.groupBox9.Size = new System.Drawing.Size(286, 409);
+			this.groupBox9.Size = new System.Drawing.Size(402, 409);
 			this.groupBox9.TabIndex = 16;
 			this.groupBox9.TabStop = false;
 			this.groupBox9.Text = "RNG";
 			// 
-			// groupBox11
+			// groupBox10
 			// 
-			this.groupBox11.Controls.Add(this.GenerateButton);
-			this.groupBox11.Controls.Add(this.label5);
-			this.groupBox11.Controls.Add(this.GenerateCount);
-			this.groupBox11.Location = new System.Drawing.Point(146, 77);
-			this.groupBox11.Name = "groupBox11";
-			this.groupBox11.Size = new System.Drawing.Size(101, 76);
-			this.groupBox11.TabIndex = 18;
-			this.groupBox11.TabStop = false;
-			this.groupBox11.Text = "Generate Noise";
+			this.groupBox10.Controls.Add(this.label7);
+			this.groupBox10.Controls.Add(this.RngValue);
+			this.groupBox10.Controls.Add(this.RandomiseButton);
+			this.groupBox10.Controls.Add(this.RngID);
+			this.groupBox10.Controls.Add(this.label6);
+			this.groupBox10.Controls.Add(this.label5);
+			this.groupBox10.Location = new System.Drawing.Point(214, 19);
+			this.groupBox10.Name = "groupBox10";
+			this.groupBox10.Size = new System.Drawing.Size(178, 97);
+			this.groupBox10.TabIndex = 12;
+			this.groupBox10.TabStop = false;
+			this.groupBox10.Text = "Seed";
 			// 
-			// GenerateButton
+			// label7
 			// 
-			this.GenerateButton.Location = new System.Drawing.Point(21, 45);
-			this.GenerateButton.Name = "GenerateButton";
-			this.GenerateButton.Size = new System.Drawing.Size(59, 24);
-			this.GenerateButton.TabIndex = 18;
-			this.GenerateButton.Text = "Generate";
-			this.GenerateButton.UseVisualStyleBackColor = true;
-			this.GenerateButton.Click += new System.EventHandler(this.GenerateButton_Click);
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(6, 73);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(93, 13);
+			this.label7.TabIndex = 23;
+			this.label7.Text = "Max: 2147483647";
+			// 
+			// RngValue
+			// 
+			this.RngValue.Location = new System.Drawing.Point(49, 44);
+			this.RngValue.Maximum = new decimal(new int[] {
+            2147483647,
+            0,
+            0,
+            0});
+			this.RngValue.Name = "RngValue";
+			this.RngValue.Size = new System.Drawing.Size(123, 20);
+			this.RngValue.TabIndex = 22;
+			this.RngValue.ValueChanged += new System.EventHandler(this.RngValue_ValueChanged);
+			// 
+			// RandomiseButton
+			// 
+			this.RandomiseButton.Location = new System.Drawing.Point(103, 68);
+			this.RandomiseButton.Name = "RandomiseButton";
+			this.RandomiseButton.Size = new System.Drawing.Size(69, 23);
+			this.RandomiseButton.TabIndex = 17;
+			this.RandomiseButton.Text = "Randomise";
+			this.RandomiseButton.UseVisualStyleBackColor = true;
+			this.RandomiseButton.Click += new System.EventHandler(this.RandomiseButton_Click);
+			// 
+			// RngID
+			// 
+			this.RngID.Location = new System.Drawing.Point(49, 18);
+			this.RngID.Name = "RngID";
+			this.RngID.Size = new System.Drawing.Size(123, 20);
+			this.RngID.TabIndex = 21;
+			this.RngID.TextChanged += new System.EventHandler(this.RngID_TextChanged);
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(6, 46);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(37, 13);
+			this.label6.TabIndex = 19;
+			this.label6.Text = "Value:";
 			// 
 			// label5
 			// 
 			this.label5.AutoSize = true;
 			this.label5.Location = new System.Drawing.Point(6, 21);
 			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(38, 13);
-			this.label5.TabIndex = 15;
-			this.label5.Text = "Count:";
-			// 
-			// GenerateCount
-			// 
-			this.GenerateCount.Location = new System.Drawing.Point(50, 19);
-			this.GenerateCount.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-			this.GenerateCount.Name = "GenerateCount";
-			this.GenerateCount.Size = new System.Drawing.Size(45, 20);
-			this.GenerateCount.TabIndex = 18;
-			this.GenerateCount.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-			// 
-			// groupBox10
-			// 
-			this.groupBox10.Controls.Add(this.RandomButton);
-			this.groupBox10.Controls.Add(this.RngValue);
-			this.groupBox10.Location = new System.Drawing.Point(146, 19);
-			this.groupBox10.Name = "groupBox10";
-			this.groupBox10.Size = new System.Drawing.Size(132, 52);
-			this.groupBox10.TabIndex = 12;
-			this.groupBox10.TabStop = false;
-			this.groupBox10.Text = "Value";
-			// 
-			// RandomButton
-			// 
-			this.RandomButton.Location = new System.Drawing.Point(57, 17);
-			this.RandomButton.Name = "RandomButton";
-			this.RandomButton.Size = new System.Drawing.Size(69, 24);
-			this.RandomButton.TabIndex = 17;
-			this.RandomButton.Text = "Randomise";
-			this.RandomButton.UseVisualStyleBackColor = true;
-			this.RandomButton.Click += new System.EventHandler(this.RandomButton_Click);
-			// 
-			// RngValue
-			// 
-			this.RngValue.Location = new System.Drawing.Point(6, 19);
-			this.RngValue.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-			this.RngValue.Name = "RngValue";
-			this.RngValue.Size = new System.Drawing.Size(45, 20);
-			this.RngValue.TabIndex = 16;
-			this.RngValue.Value = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-			this.RngValue.ValueChanged += new System.EventHandler(this.RngValue_ValueChanged);
+			this.label5.Size = new System.Drawing.Size(21, 13);
+			this.label5.TabIndex = 18;
+			this.label5.Text = "ID:";
 			// 
 			// AddEvent
 			// 
-			this.AddEvent.Location = new System.Drawing.Point(117, 35);
+			this.AddEvent.Location = new System.Drawing.Point(185, 35);
 			this.AddEvent.Name = "AddEvent";
 			this.AddEvent.Size = new System.Drawing.Size(23, 23);
 			this.AddEvent.TabIndex = 15;
@@ -756,7 +739,7 @@ namespace TAS63Editor
 			// 
 			// RemoveEvent
 			// 
-			this.RemoveEvent.Location = new System.Drawing.Point(117, 64);
+			this.RemoveEvent.Location = new System.Drawing.Point(185, 64);
 			this.RemoveEvent.Name = "RemoveEvent";
 			this.RemoveEvent.Size = new System.Drawing.Size(23, 23);
 			this.RemoveEvent.TabIndex = 16;
@@ -769,7 +752,7 @@ namespace TAS63Editor
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.SystemColors.Control;
-			this.ClientSize = new System.Drawing.Size(694, 451);
+			this.ClientSize = new System.Drawing.Size(875, 451);
 			this.Controls.Add(this.groupBox9);
 			this.Controls.Add(this.groupBox8);
 			this.Controls.Add(this.toolStrip1);
@@ -792,10 +775,8 @@ namespace TAS63Editor
 			this.groupBox7.ResumeLayout(false);
 			this.groupBox8.ResumeLayout(false);
 			this.groupBox9.ResumeLayout(false);
-			this.groupBox11.ResumeLayout(false);
-			this.groupBox11.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.GenerateCount)).EndInit();
 			this.groupBox10.ResumeLayout(false);
+			this.groupBox10.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.RngValue)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -856,15 +837,15 @@ namespace TAS63Editor
 		private System.Windows.Forms.GroupBox groupBox8;
 		private System.Windows.Forms.GroupBox groupBox9;
 		private System.Windows.Forms.GroupBox groupBox10;
-		private System.Windows.Forms.Button RandomButton;
-		private System.Windows.Forms.NumericUpDown RngValue;
 		private System.Windows.Forms.Button AddEvent;
 		private System.Windows.Forms.Button RemoveEvent;
-		private System.Windows.Forms.GroupBox groupBox11;
-		private System.Windows.Forms.NumericUpDown GenerateCount;
-		private System.Windows.Forms.Button GenerateButton;
-		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Button DuplicateFrame;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.TextBox RngID;
+		private System.Windows.Forms.Button RandomiseButton;
+		private System.Windows.Forms.NumericUpDown RngValue;
+		private System.Windows.Forms.Label label7;
 	}
 }
 
